@@ -1,0 +1,6 @@
+venv/
+vnv/
+
+*.pycache
+
+
