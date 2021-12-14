@@ -1,6 +1,7 @@
 venv/
 vnv/
+__pycache__/
 
 *.pycache
-
+*.pyc
 
