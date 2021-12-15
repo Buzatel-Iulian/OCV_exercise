@@ -4,6 +4,8 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
+from model_load import read_off
+
 import math
 
 pygame.init()
@@ -39,7 +41,9 @@ up_down_angle = 0.0
 paused = False
 run = True
 clock = pygame.time.Clock()
-i=0
+j=0
+scale = 0.5
+model = read_off( "Appendix_C/LowPolyMask.off" )
 
 while run:
 	for event in pygame.event.get():
@@ -99,7 +103,7 @@ while run:
 		glPopMatrix()
 		glMultMatrixf(viewMatrix)
 
-		glLightfv(GL_LIGHT0, GL_POSITION, [1, -1, 1, 0])
+		glLightfv(GL_LIGHT0, GL_POSITION, [100, -100, 100, 0])
 
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
 
@@ -113,14 +117,25 @@ while run:
 		glVertex3f(-10, 10, -2)
 		glEnd()
 
-		glRotate(i,1,1,1)
-		i = (i + 1) % 360
+		glRotate(j,1,1,1)
+		j = (j + 1) % 360
 
 		glTranslatef(-1.5, 0, 0)
+		glColor4f(0.5, 0.5, 0.2, 1)
+		glBegin(GL_TRIANGLES)
+		for i in range(model["face_count"]):
+			#glBegin(GL_TRIANGLES)
+			glVertex3f(model["vertexes"][model["faces"][i]["v1"]]["x"]*scale, model["vertexes"][model["faces"][i]["v1"]]["y"]*scale, model["vertexes"][model["faces"][i]["v1"]]["z"]*scale)
+			glVertex3f(model["vertexes"][model["faces"][i]["v2"]]["x"]*scale, model["vertexes"][model["faces"][i]["v2"]]["y"]*scale, model["vertexes"][model["faces"][i]["v2"]]["z"]*scale)
+			glVertex3f(model["vertexes"][model["faces"][i]["v3"]]["x"]*scale, model["vertexes"][model["faces"][i]["v3"]]["y"]*scale, model["vertexes"][model["faces"][i]["v3"]]["z"]*scale)
+		glEnd()
+
+
+		glTranslatef(-10.5, 0, 0)
 		glColor4f(0.5, 0.2, 0.2, 1)
 		gluSphere(sphere, 1.0, 32, 16)
 
-		glTranslatef(3, 0, 0)
+		glTranslatef(13, 0, 0)
 		glColor4f(0.2, 0.2, 0.5, 1)
 		gluSphere(sphere, 1.0, 32, 16)
 

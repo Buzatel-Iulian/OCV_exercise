@@ -25,6 +25,13 @@ def read_off( file ):
 			data["vertexes"][i]["x"] = float(x)
 			data["vertexes"][i]["y"] = float(y)
 			data["vertexes"][i]["z"] = float(z)
+		for i in range(data["face_count"]):
+			line = f.readline()
+			n, v1, v2, v3, aux = line.split(" ")
+			data["faces"][i] = {}
+			data["faces"][i]["v1"] = int(v1)
+			data["faces"][i]["v2"] = int(v2)
+			data["faces"][i]["v3"] = int(v3)
 
 		return data
 

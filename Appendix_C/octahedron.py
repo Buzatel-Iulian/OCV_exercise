@@ -11,6 +11,7 @@ def normal(face):
     return(cross(subtract(face[1], face[0]), subtract(face[2], face[0])))
 
 blues = matplotlib.cm.get_cmap('Blues')
+print(blues)
 
 def shade(face,color_map=blues,light=(1,2,3)):
     return color_map(1 - dot(unit(normal(face)), unit(light)))
@@ -55,4 +56,4 @@ while True:
             glVertex3fv(vertex) 
     glEnd()
     pygame.display.flip() 
-    print(clock.get_fps())
+    #print(clock.get_fps())
