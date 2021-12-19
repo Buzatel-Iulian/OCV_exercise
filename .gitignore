@@ -5,4 +5,4 @@ __pycache__/
 *.pycache
 *.pyc
 *.cpython-38.pyc
-
+*.swp

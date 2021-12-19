@@ -4,9 +4,9 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
-from model_load import read_off
+from model_load import read_off, shade
 
-import math
+#import math
 
 pygame.init()
 display = (400, 300)
@@ -109,7 +109,7 @@ while run:
 
 		glPushMatrix()
 
-		glColor4f(0.5, 0.5, 0.5, 1)
+		glColor4f(0.2, 0.2, 0.2, 1)
 		glBegin(GL_QUADS)
 		glVertex3f(-10, -10, -2)
 		glVertex3f(10, -10, -2)
@@ -117,19 +117,30 @@ while run:
 		glVertex3f(-10, 10, -2)
 		glEnd()
 
-		glRotate(j,1,1,1)
+		glRotate(j,0,0,1)
 		j = (j + 1) % 360
 
 		glTranslatef(-1.5, 0, 0)
-		glColor4f(0.5, 0.5, 0.2, 1)
+		color = (0.5, 0.5, 0.2, 1)
+		lum = 0.2
+		#glColor4f(0.5, 0.5, 0.2, 1)
+		#glColor4f(color[0]*lum, color[1]*lum, color[2]*lum, color[3]*lum)
 		glBegin(GL_TRIANGLES)
 		for i in range(model["face_count"]):
 			#glBegin(GL_TRIANGLES)
-			glVertex3f(model["vertexes"][model["faces"][i]["v1"]]["x"]*scale, model["vertexes"][model["faces"][i]["v1"]]["y"]*scale, model["vertexes"][model["faces"][i]["v1"]]["z"]*scale)
-			glVertex3f(model["vertexes"][model["faces"][i]["v2"]]["x"]*scale, model["vertexes"][model["faces"][i]["v2"]]["y"]*scale, model["vertexes"][model["faces"][i]["v2"]]["z"]*scale)
-			glVertex3f(model["vertexes"][model["faces"][i]["v3"]]["x"]*scale, model["vertexes"][model["faces"][i]["v3"]]["y"]*scale, model["vertexes"][model["faces"][i]["v3"]]["z"]*scale)
+			face = [
+				(model["vertexes"][model["faces"][i]["v1"]]["x"]*scale, model["vertexes"][model["faces"][i]["v1"]]["y"]*scale, model["vertexes"][model["faces"][i]["v1"]]["z"]*scale),
+				(model["vertexes"][model["faces"][i]["v2"]]["x"]*scale, model["vertexes"][model["faces"][i]["v2"]]["y"]*scale, model["vertexes"][model["faces"][i]["v2"]]["z"]*scale),
+				(model["vertexes"][model["faces"][i]["v3"]]["x"]*scale, model["vertexes"][model["faces"][i]["v3"]]["y"]*scale, model["vertexes"][model["faces"][i]["v3"]]["z"]*scale)]
+			lum = shade(face)
+			glColor4f(color[0]*lum, color[1]*lum, color[2]*lum, color[3]*lum)
+			for v in face:
+				glVertex3fv(v)
+			#glVertex3f(model["vertexes"][model["faces"][i]["v1"]]["x"]*scale, model["vertexes"][model["faces"][i]["v1"]]["y"]*scale, model["vertexes"][model["faces"][i]["v1"]]["z"]*scale)
+			#glVertex3f(model["vertexes"][model["faces"][i]["v2"]]["x"]*scale, model["vertexes"][model["faces"][i]["v2"]]["y"]*scale, model["vertexes"][model["faces"][i]["v2"]]["z"]*scale)
+			#glVertex3f(model["vertexes"][model["faces"][i]["v3"]]["x"]*scale, model["vertexes"][model["faces"][i]["v3"]]["y"]*scale, model["vertexes"][model["faces"][i]["v3"]]["z"]*scale)
 		glEnd()
-
+		print(face)
 
 		glTranslatef(-10.5, 0, 0)
 		glColor4f(0.5, 0.2, 0.2, 1)

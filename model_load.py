@@ -1,3 +1,16 @@
+#from math import *
+from vectors import *
+
+def normal(face):
+	#print(cross(subtract(face[1], face[0]), subtract(face[2], face[0])))
+	return(cross(subtract(face[1], face[0]), subtract(face[2], face[0])))
+
+
+def shade(face, light=(20,20,20)):
+	#print(color_map(1 - dot(unit(normal(face)), unit(light))))
+	print(1 - dot(unit(normal(face)), unit(light)))
+	return 1 - dot(unit(normal(face)), unit(light))
+	#return color_map(1 - dot(unit(normal(face)), unit(light)))
 
 
 def read_off( file ):

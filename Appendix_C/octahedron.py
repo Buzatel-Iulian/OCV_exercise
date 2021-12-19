@@ -8,12 +8,14 @@ from math import *
 
 
 def normal(face):
+    #print(cross(subtract(face[1], face[0]), subtract(face[2], face[0])))
     return(cross(subtract(face[1], face[0]), subtract(face[2], face[0])))
 
-blues = matplotlib.cm.get_cmap('Blues')
-print(blues)
+blues = matplotlib.cm.get_cmap('magma')
 
 def shade(face,color_map=blues,light=(1,2,3)):
+    #print(color_map(1 - dot(unit(normal(face)), unit(light))))
+    print(1 - dot(unit(normal(face)), unit(light)))
     return color_map(1 - dot(unit(normal(face)), unit(light)))
 
 light = (1,2,3)
@@ -49,6 +51,7 @@ while True:
     clock.tick() #3
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
     glBegin(GL_TRIANGLES) 
+    print("frame")
     for face in faces:
         color = shade(face,blues,light)
         for vertex in face:
