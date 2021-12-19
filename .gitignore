@@ -6,3 +6,6 @@ __pycache__/
 *.pyc
 *.cpython-38.pyc
 *.swp
+*.jpg
+*.png
+
