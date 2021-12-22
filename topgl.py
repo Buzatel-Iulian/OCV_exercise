@@ -5,6 +5,7 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 
 from model_load import read_off, shade
+from vectors import rotate_obj
 
 #import math
 
@@ -117,21 +118,26 @@ while run:
 		glVertex3f(-10, 10, -2)
 		glEnd()
 
-		glRotate(j,0,0,1)
-		j = (j + 1) % 360
+		#glRotate(j,0,0,1)
+		#j = (j + 1) % 360
 
 		glTranslatef(-1.5, 0, 0)
 		color = (0.5, 0.5, 0.2, 1)
 		lum = 0.2
+		face = [
+			[model["vertexes"][model["faces"][i]["v1"]]["x"]*scale, model["vertexes"][model["faces"][i]["v1"]]["y"]*scale, model["vertexes"][model["faces"][i]["v1"]]["z"]*scale],
+			[model["vertexes"][model["faces"][i]["v2"]]["x"]*scale, model["vertexes"][model["faces"][i]["v2"]]["y"]*scale, model["vertexes"][model["faces"][i]["v2"]]["z"]*scale],
+			[model["vertexes"][model["faces"][i]["v3"]]["x"]*scale, model["vertexes"][model["faces"][i]["v3"]]["y"]*scale, model["vertexes"][model["faces"][i]["v3"]]["z"]*scale]]
 		#glColor4f(0.5, 0.5, 0.2, 1)
 		#glColor4f(color[0]*lum, color[1]*lum, color[2]*lum, color[3]*lum)
 		glBegin(GL_TRIANGLES)
 		for i in range(model["face_count"]):
 			#glBegin(GL_TRIANGLES)
-			face = [
-				(model["vertexes"][model["faces"][i]["v1"]]["x"]*scale, model["vertexes"][model["faces"][i]["v1"]]["y"]*scale, model["vertexes"][model["faces"][i]["v1"]]["z"]*scale),
-				(model["vertexes"][model["faces"][i]["v2"]]["x"]*scale, model["vertexes"][model["faces"][i]["v2"]]["y"]*scale, model["vertexes"][model["faces"][i]["v2"]]["z"]*scale),
-				(model["vertexes"][model["faces"][i]["v3"]]["x"]*scale, model["vertexes"][model["faces"][i]["v3"]]["y"]*scale, model["vertexes"][model["faces"][i]["v3"]]["z"]*scale)]
+			#face = [
+			#	[model["vertexes"][model["faces"][i]["v1"]]["x"]*scale, model["vertexes"][model["faces"][i]["v1"]]["y"]*scale, model["vertexes"][model["faces"][i]["v1"]]["z"]*scale],
+			#	[model["vertexes"][model["faces"][i]["v2"]]["x"]*scale, model["vertexes"][model["faces"][i]["v2"]]["y"]*scale, model["vertexes"][model["faces"][i]["v2"]]["z"]*scale],
+			#	[model["vertexes"][model["faces"][i]["v3"]]["x"]*scale, model["vertexes"][model["faces"][i]["v3"]]["y"]*scale, model["vertexes"][model["faces"][i]["v3"]]["z"]*scale]]
+			face = rotate_obj(face, rx = 1)
 			lum = shade(face)
 			glColor4f(color[0]*lum, color[1]*lum, color[2]*lum, color[3]*lum)
 			for v in face:
@@ -155,3 +161,4 @@ while run:
 		pygame.display.flip()
 		pygame.time.wait(10)
 pygame.quit()
+#print(rotate_obj(face, rx=1)[1][1])
