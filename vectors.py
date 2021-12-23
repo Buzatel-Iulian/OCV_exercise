@@ -16,6 +16,16 @@ def rotate_obj(obj, rx = 0, ry = 0, rz = 0):
 		print("rx")
 		mrx = np.matrix([[1, 0, 0], [0, cos(rx), sin(rx)], [0, -sin(rx), cos(rx)]])
 		robj = np.dot(robj, mrx)
+	if ry != 0 :
+		print("ry")
+		mry = np.matrix([[cos(ry), 0, -sin(ry)], [0, 1, 0], [sin(ry), 0, cos(ry)]])
+		#mry = np.matrix([[cos(ry), 0, -sin(ry)], [0, 1, 0], [sin(0), 0, cos(0)]])
+		robj = np.dot(robj, mry)
+	if rz != 0 :
+		print("rz")
+		mrz = np.matrix([[cos(rz), sin(rz), 0], [-sin(rz), cos(rz), 0], [0, 0, 1]])
+		robj = np.dot(robj, mrz)
+
 	robj = robj.tolist()
 	return robj
 
