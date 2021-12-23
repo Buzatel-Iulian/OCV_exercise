@@ -124,10 +124,6 @@ while run:
 		glTranslatef(-1.5, 0, 0)
 		color = (0.5, 0.5, 0.2, 1)
 		lum = 0.2
-		#face = [
-		#	[model["vertexes"][model["faces"][i]["v1"]]["x"]*scale, model["vertexes"][model["faces"][i]["v1"]]["y"]*scale, model["vertexes"][model["faces"][i]["v1"]]["z"]*scale],
-		#	[model["vertexes"][model["faces"][i]["v2"]]["x"]*scale, model["vertexes"][model["faces"][i]["v2"]]["y"]*scale, model["vertexes"][model["faces"][i]["v2"]]["z"]*scale],
-		#	[model["vertexes"][model["faces"][i]["v3"]]["x"]*scale, model["vertexes"][model["faces"][i]["v3"]]["y"]*scale, model["vertexes"][model["faces"][i]["v3"]]["z"]*scale]]
 		#glColor4f(0.5, 0.5, 0.2, 1)
 		#glColor4f(color[0]*lum, color[1]*lum, color[2]*lum, color[3]*lum)
 		glBegin(GL_TRIANGLES)
@@ -142,9 +138,6 @@ while run:
 			glColor4f(color[0]*lum, color[1]*lum, color[2]*lum, color[3]*lum)
 			for v in face:
 				glVertex3fv(v)
-			#glVertex3f(model["vertexes"][model["faces"][i]["v1"]]["x"]*scale, model["vertexes"][model["faces"][i]["v1"]]["y"]*scale, model["vertexes"][model["faces"][i]["v1"]]["z"]*scale)
-			#glVertex3f(model["vertexes"][model["faces"][i]["v2"]]["x"]*scale, model["vertexes"][model["faces"][i]["v2"]]["y"]*scale, model["vertexes"][model["faces"][i]["v2"]]["z"]*scale)
-			#glVertex3f(model["vertexes"][model["faces"][i]["v3"]]["x"]*scale, model["vertexes"][model["faces"][i]["v3"]]["y"]*scale, model["vertexes"][model["faces"][i]["v3"]]["z"]*scale)
 		glEnd()
 		print(face)
 

@@ -6,7 +6,7 @@ def normal(face):
 	return(cross(subtract(face[1], face[0]), subtract(face[2], face[0])))
 
 
-def shade(face, light=(20,20,20)):
+def shade(face, light=(20,0,20)):
 	#print(color_map(1 - dot(unit(normal(face)), unit(light))))
 	print(1 - dot(unit(normal(face)), unit(light)))
 	return 1 - dot(unit(normal(face)), unit(light))
