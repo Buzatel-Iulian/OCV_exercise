@@ -1,5 +1,7 @@
 # General Documentation
 
+![](Media/example.gif)
+
 ## Description
 
 This is a practice repository for OpenGL in Python. It is not meant to be practical, nor really efficient, just a proof of concepts that do not seem to be clearly explained or exemplified when it comes to the Python version of the library. 

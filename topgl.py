@@ -10,7 +10,7 @@ from vectors import rotate_obj
 #import math
 
 pygame.init()
-display = (400, 300)
+display = (640, 360)
 scree = pygame.display.set_mode(display, DOUBLEBUF | OPENGL)
 
 glEnable(GL_DEPTH_TEST)
