@@ -4,7 +4,7 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
-from model_load import read_off, shade
+from model_load import read_off, shade, put_obj
 from vectors import rotate_obj
 
 #import math
@@ -44,7 +44,9 @@ run = True
 clock = pygame.time.Clock()
 j=0
 scale = 0.5
-model = read_off( "Appendix_C/LowPolyMask.off" )
+light1 = (20, 20, 20)
+model1 = read_off( "models/LowPolyMask.off" )
+model2 = read_off( "models/sp.off")
 
 while run:
 	for event in pygame.event.get():
@@ -88,14 +90,7 @@ while run:
 
 		# apply the left and right rotation
 		glRotatef(mouseMove[0]*0.1, 0.0, 1.0, 0.0)
-
-		#degrees_per_second = 360./5.
-		#degrees_per_millisecond = degrees_per_second / 1000.
-		#milliseconds = clock.tick()
-		#degrees = degrees_per_millisecond * milliseconds
-		#glRotatef(degrees, 1,1,1)
-
-
+		
 		# multiply the current matrix by the get the new view matrix and store the final vie matrix 
 		glMultMatrixf(viewMatrix)
 		viewMatrix = glGetFloatv(GL_MODELVIEW_MATRIX)
@@ -124,22 +119,10 @@ while run:
 		glTranslatef(-1.5, 0, 0)
 		color = (0.5, 0.5, 0.2, 1)
 		lum = 0.2
-		#glColor4f(0.5, 0.5, 0.2, 1)
-		#glColor4f(color[0]*lum, color[1]*lum, color[2]*lum, color[3]*lum)
-		glBegin(GL_TRIANGLES)
-		for i in range(model["face_count"]):
-			#glBegin(GL_TRIANGLES)
-			face = [
-				[model["vertexes"][model["faces"][i]["v1"]]["x"]*scale, model["vertexes"][model["faces"][i]["v1"]]["y"]*scale, model["vertexes"][model["faces"][i]["v1"]]["z"]*scale],
-				[model["vertexes"][model["faces"][i]["v2"]]["x"]*scale, model["vertexes"][model["faces"][i]["v2"]]["y"]*scale, model["vertexes"][model["faces"][i]["v2"]]["z"]*scale],
-				[model["vertexes"][model["faces"][i]["v3"]]["x"]*scale, model["vertexes"][model["faces"][i]["v3"]]["y"]*scale, model["vertexes"][model["faces"][i]["v3"]]["z"]*scale]]
-			face = rotate_obj(face, rz = j)
-			lum = shade(face)
-			glColor4f(color[0]*lum, color[1]*lum, color[2]*lum, color[3]*lum)
-			for v in face:
-				glVertex3fv(v)
-		glEnd()
-		print(face)
+		
+		#put_obj(model1, rot = [90, 0, j], light = light1)
+		put_obj(model2, rot = [0, 0, j], light = light1, scale=0.1)
+		#print(face)
 
 		glTranslatef(-10.5, 0, 0)
 		glColor4f(0.5, 0.2, 0.2, 1)

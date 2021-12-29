@@ -1,5 +1,8 @@
 #from math import *
 from vectors import *
+from OpenGL.GL import *
+from OpenGL.GLU import *
+
 
 def normal(face):
 	#print(cross(subtract(face[1], face[0]), subtract(face[2], face[0])))
@@ -48,5 +51,24 @@ def read_off( file ):
 
 		return data
 
+def put_obj(model, rot = [0, 0, 0], light = (0, 0, 0), col = (0.5, 0.5, 0.5, 1), scale = 1):
+	glBegin(GL_TRIANGLES)
+	for i in range(model["face_count"]):
+		#glBegin(GL_TRIANGLES)
+		face = [
+			[model["vertexes"][model["faces"][i]["v1"]]["x"]*scale, model["vertexes"][model["faces"][i]["v1"]]["y"]*scale, model["vertexes"][model["faces"][i]["v1"]]["z"]*scale],
+			[model["vertexes"][model["faces"][i]["v2"]]["x"]*scale, model["vertexes"][model["faces"][i]["v2"]]["y"]*scale, model["vertexes"][model["faces"][i]["v2"]]["z"]*scale],
+			[model["vertexes"][model["faces"][i]["v3"]]["x"]*scale, model["vertexes"][model["faces"][i]["v3"]]["y"]*scale, model["vertexes"][model["faces"][i]["v3"]]["z"]*scale]]
+		if rot != [0, 0, 0] :
+			face = rotate_obj(face, rx = rot[0], ry = rot[1], rz = rot[2])
+		#face = rotate_obj(face, (90, 0, j))
+		if light != (0, 0, 0) :
+			lum = shade(face, light)
+		glColor4f(col[0]*lum, col[1]*lum, col[2]*lum, col[3]*lum)
+		for v in face:
+			glVertex3fv(v)
+	glEnd()
+
+
 if __name__ == "__main__" :
-	print(read_off("Appendix_C/sp.off"))
+	print(read_off("models/sp.off"))
